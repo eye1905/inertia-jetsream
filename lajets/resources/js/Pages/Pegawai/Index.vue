@@ -15,9 +15,10 @@
         </template>
         
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-white-800 overflow-hidden shadow-xl sm:rounded-lg">
-                    <table class="min-w-full divide-y divide-gray-200">
+
+			<div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+				<div class="overflow-hidden bg-white shadow-xl sm:rounded-lg" style="padding:15px">
+                    <table class="min-w-full divide-y divide-gray-200" >
                         <thead class="bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-6 py-3 text-sm font-medium tracking-wider text-center text-gray-500">No</th>
@@ -35,9 +36,13 @@
                                 <td>{{ item.phone}}</td>
                                 <td>{{ item.address}}</td>
                                 <td>
-                                    <a :href="`/pegawai/${item.id}/pegawai`" class="btn text-green-400">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
+                                    <button @click.prevent="goEdit(`${item.id}`)" class="float-left px-4 py-2 text-green-600 duration-100 rounded hover:text-green-600">
+                                        <i class="fa fa-edit"> </i>
+                                    </button>
+
+                                    <button @click.prevent="goDelete(`${item.id}`)" class="float-left px-4 py-2 text-red-600 duration-100 rounded hover:text-red-600">
+                                        <i class="fa fa-times"> </i>
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
@@ -60,10 +65,10 @@ export default{
         goCreate(){
             this.$inertia.get(route('pegawai.create'));
         },
-        goEdit(){
+        goEdit(id){
             this.$inertia.get(route('pegawai.edit', id));
         },
-        goDelete(){
+        goDelete(id){
             if (confirm('Are you sure you want to delete this data ?')) {
                 this.$inertia.delete(route('pegawai.destroy', id));
             }

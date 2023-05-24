@@ -103,6 +103,7 @@
 
 <script>
 import AppLayout from '@/Layouts/AppLayout.vue';
+import { Head, Link, router } from '@inertiajs/vue3';
 export default {
 	components: {
 		AppLayout

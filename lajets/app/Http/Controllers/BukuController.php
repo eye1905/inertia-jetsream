@@ -18,7 +18,7 @@ class BukuController extends Controller
             })->get()->toArray()
         ]);
     }
-
+    
     public function create()
     {
         return Inertia::render('Buku/Create', [

@@ -11,7 +11,7 @@ class PegawaiRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class PegawaiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|min:2|max:255',
+            'phone' => 'required|digits_between:6,16',
+            'gender' => 'required|in:L,P',
+            'address' => 'required',
         ];
     }
 }

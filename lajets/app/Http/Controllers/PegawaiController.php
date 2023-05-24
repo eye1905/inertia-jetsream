@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Pegawai;
+use App\Http\Requests\PegawaiRequest;
 
 class PegawaiController extends Controller
 {
@@ -25,15 +26,21 @@ class PegawaiController extends Controller
      */
     public function create()
     {
+        $kelamin = array(
+            'L' => 'Laki-Laki',
+            'P' => 'Perempuan',
+
+        );
         return Inertia::render('Pegawai/Create', [
-            'pegawai' => []
+            'pegawai' => [],
+            'kelamin' => $kelamin
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PegawaiRequest $request)
     {
         Pegawai::create($request->toArray());
         return redirect()->route('pegawai.index')->with('success', 'Pegawai berhasil di update');
@@ -44,7 +51,7 @@ class PegawaiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        abort(404);
     }
     
     /**
@@ -52,15 +59,21 @@ class PegawaiController extends Controller
      */
     public function edit(string $id)
     {
+        $kelamin = array(
+            'L' => 'Laki-Laki',
+            'P' => 'Perempuan',
+
+        );
         return Inertia::render('Pegawai/Create', [
-            'pegawai' => Pegawai::findOrFail($id)
+            'pegawai' => Pegawai::findOrFail($id),
+            'kelamin' => $kelamin
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PegawaiRequest $request, string $id)
     {
         Pegawai::where("id", $id)->update($request->toArray());
         return redirect()->route('pegawai.index')->with('success', 'Pegawai berhasil dibuat');

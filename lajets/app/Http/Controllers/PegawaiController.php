@@ -25,7 +25,9 @@ class PegawaiController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Pegawai/Create', [
+            'pegawai' => []
+        ]);
     }
 
     /**
@@ -33,7 +35,8 @@ class PegawaiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Pegawai::create($request->toArray());
+        return redirect()->route('pegawai.index')->with('success', 'Pegawai berhasil di update');
     }
 
     /**
@@ -43,13 +46,15 @@ class PegawaiController extends Controller
     {
         //
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        return Inertia::render('Pegawai/Create', [
+            'pegawai' => Pegawai::findOrFail($id)
+        ]);
     }
 
     /**
@@ -57,7 +62,8 @@ class PegawaiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        Pegawai::where("id", $id)->update($request->toArray());
+        return redirect()->route('pegawai.index')->with('success', 'Pegawai berhasil dibuat');
     }
 
     /**
@@ -65,6 +71,7 @@ class PegawaiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Pegawai::where("id", $id)->delete();
+        return redirect()->route('pegawai.index')->with('success', 'Pegawai berhasil dihapus');
     }
 }

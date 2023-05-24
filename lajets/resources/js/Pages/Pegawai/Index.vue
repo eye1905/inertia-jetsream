@@ -8,9 +8,9 @@
                     Pegawai
                 </h2>
                 
-                <a :href="`pegawai/create`" class="px-4 py-2 mr-3 text-sm text-green-600 transition border border-green-300 rounded-full hover:bg-green-600 hover:text-white hover:border-transparent">
+                <button type="button" @click.prevent="goCreate()" class="px-4 py-2 mr-3 text-sm text-green-600 transition border border-green-300 rounded-full hover:bg-green-600 hover:text-white hover:border-transparent">
                     <i class="fa fa-plus"> </i> Create Pegawai
-                </a>
+                </button>
             </div>
         </template>
         
@@ -57,7 +57,20 @@ export default{
         pegawai:Object,
     },
     methods: {
-        
+        goCreate(){
+            this.$inertia.get(route('pegawai.create'));
+        },
+        goEdit(){
+            this.$inertia.get(route('pegawai.edit', id));
+        },
+        goDelete(){
+            if (confirm('Are you sure you want to delete this data ?')) {
+                this.$inertia.delete(route('pegawai.destroy', id));
+            }
+        },
+        goSearch(){
+            this.$inertia.replace(this.route('pegawai.index', { term: this.term }))
+        }
     },
 }
 </script>

@@ -8,10 +8,10 @@
 					Buku
 					<i class="fa-solid fa-book"></i>
 				</p>
-
-                <a :href="`buku/create`" class="px-4 py-2 mr-3 text-sm text-green-600 transition border border-green-300 rounded-full hover:bg-green-600 hover:text-white hover:border-transparent">
-                    <i class="fa fa-plus"> </i> Create Buku
-                </a>
+				
+				<button @click.prevent="goCreate()" class="px-4 py-2 mr-3 text-sm text-green-600 transition border border-green-300 rounded-full hover:bg-green-600 hover:text-white hover:border-transparent" type="button">
+					<i class="fa fa-plus"> </i> Create Buku
+				</button>
 			</h2>
 		</template>
 		
@@ -83,9 +83,10 @@
 									{{ item.created_at }}
 								</td>
                                 <td>
-                                    <a :href="`/buku/${item.id}/edit`" class="float-left px-4 py-2 text-green-400 duration-100 rounded hover:text-green-600">
+									<button @click.prevent="goEdit(`${item.id}`)" class="float-left px-4 py-2 text-green-600 duration-100 rounded hover:text-green-600">
                                         <i class="fa fa-edit"> </i>
-                                    </a>
+                                    </button>
+
                                     <button @click.prevent="deletePost(`${item.id}`)" class="float-left px-4 py-2 text-red-600 duration-100 rounded hover:text-red-600">
                                         <i class="fa fa-times"> </i>
                                     </button>
@@ -116,8 +117,14 @@ export default {
                 this.$inertia.delete(route('buku.destroy', id));
             }
         },
+		goEdit(id) {
+            this.$inertia.get(route('buku.edit', id));
+        },
+		goCreate() {
+            this.$inertia.get(route('buku.create'));
+        },
         search() {
-			this.$inertia.replace(this.route('users.index', { term: this.term }))
+			this.$inertia.replace(this.route('buku.index', { term: this.term }))
 		},
     }
 }
